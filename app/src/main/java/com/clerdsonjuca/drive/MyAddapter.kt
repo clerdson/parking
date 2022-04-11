@@ -1,12 +1,16 @@
 package com.clerdsonjuca.drive
 
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.clerdsonjuca.drive.model.Historico
 import kotlinx.android.synthetic.main.row.view.*
+import kotlinx.coroutines.NonDisposableHandle.parent
 
 
 class MyAdapter: RecyclerView.Adapter<MyAdapter.MyViewHolder>(){
@@ -24,9 +28,21 @@ class MyAdapter: RecyclerView.Adapter<MyAdapter.MyViewHolder>(){
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-
+        var pago:String = "-"
         holder.itemView.time2.text = myList[position].time.toString()
-        holder.itemView.time3.text = myList[position].paid.toString()
+        if(myList[position].paid == true){
+            pago="pago"
+        }
+        holder.itemView.time3.text = pago.toString()
+        holder.itemView.cardViewRow.setOnClickListener {
+
+
+            val intent = Intent(it.context ,MainActivity3::class.java)
+            intent.putExtra("pay",pago)
+            intent.putExtra("time",myList[position].time)
+            intent.putExtra("plate",myList[position].plate)
+            it.context.startActivity(intent)
+        }
     }
 
     fun setData(newList: List<Historico>){

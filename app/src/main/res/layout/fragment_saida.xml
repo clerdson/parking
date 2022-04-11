@@ -73,6 +73,7 @@
         app:strokeWidth="3dp" />
 
     <ProgressBar
+        android:indeterminateDrawable="@drawable/loading"
         android:visibility="gone"
         android:id="@+id/progressBar2"
         style="?android:attr/progressBarStyle"

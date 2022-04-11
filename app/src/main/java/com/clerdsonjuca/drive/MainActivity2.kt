@@ -15,9 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.clerdsonjuca.drive.repository.Repository
-import com.clerdsonjuca.drive.ui.SaidaFragment
 import kotlinx.android.synthetic.main.activity_main2.*
-import kotlinx.android.synthetic.main.fragment_saida.*
 
 class MainActivity2 : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
@@ -34,12 +32,18 @@ class MainActivity2 : AppCompatActivity() {
 
         setupRecyclerview()
         val repository = Repository()
+        progressBar3.visibility = View.VISIBLE
+        imageButtonBack.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
         val viewModelFactory = MainViewModelFactory(repository)
         //onCreateDialog(profileName.toString()).show()
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
         viewModel.getPost(profileName.toString())
         viewModel.myResponse2.observe(this, Observer { response ->
             if(response.isSuccessful){
+                placa1.text = profileName
                 Log.d("Main", response.body().toString())
                 Log.d("Main", response.code().toString())
                 Log.d("Main", response.message())
@@ -49,10 +53,11 @@ class MainActivity2 : AppCompatActivity() {
                 // onCreateDialog(response.body().toString()).show()
 
 
+                progressBar3.visibility = View.GONE
 
             }else {
                 Toast.makeText(this,"erro",Toast.LENGTH_SHORT).show()
-
+                progressBar3.visibility = View.GONE
             }
         })
 

@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.content.DialogInterface
 import android.content.Intent
+import android.database.DatabaseUtils
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
@@ -13,13 +14,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.clerdsonjuca.drive.*
+import com.clerdsonjuca.drive.databinding.ActivityMainBinding
 import com.clerdsonjuca.drive.repository.Repository
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_app.*
@@ -37,6 +41,8 @@ import kotlinx.android.synthetic.main.fragment_saida.*
  */
 class SaidaFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
+    private lateinit var bindingSignIn: SaidaFragment
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,10 +54,6 @@ class SaidaFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-
-
-
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_saida, container, false)
 
@@ -62,20 +64,23 @@ class SaidaFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
+        val buttonPagamento = view.findViewById<Button>(R.id.buttonP)
+        val buttonSaida = view.findViewById<Button>(R.id.buttonS)
+        val buttonSaida2 = view.findViewById<Button>(R.id.buttonS2)
 
-         buttonP.setOnClickListener {
+         buttonPagamento.setOnClickListener {
 
              println("dialog")
              onCreateDialogP().show()
 
          }
-        buttonS.setOnClickListener {
+        buttonSaida.setOnClickListener {
 
             println("dialog")
             onCreateDialogS().show()
 
         }
-        buttonS2.setOnClickListener {
+        buttonSaida2.setOnClickListener {
             val intent = Intent(requireActivity(), MainActivity2::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             intent.putExtra("placa",editTextTextPersonNameSaida.text.toString())
