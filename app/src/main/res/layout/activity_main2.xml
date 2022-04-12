@@ -9,8 +9,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="418dp"
-        android:layout_height="656dp"
+        android:layout_width="407dp"
+        android:layout_height="500dp"
         android:layout_marginBottom="4dp"
         android:background="#FFF"
         android:backgroundTint="#FFF"
@@ -34,8 +34,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="412dp"
-        android:layout_height="58dp"
+        android:layout_width="415dp"
+        android:layout_height="59dp"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.666"
@@ -49,20 +49,20 @@
 
             <TextView
                 android:id="@+id/placa2"
-                android:layout_width="175dp"
-                android:layout_height="48dp"
+                android:layout_width="84dp"
+                android:layout_height="54dp"
                 android:text="Placa"
                 android:textColor="#00BCD4"
                 android:textSize="34sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.893"
                 app:layout_constraintStart_toEndOf="@+id/imageButtonBack"
-                tools:layout_editor_absoluteY="4dp" />
+                tools:layout_editor_absoluteY="-2dp" />
 
             <ImageButton
                 android:id="@+id/imageButtonBack"
-                android:layout_width="83dp"
-                android:layout_height="56dp"
+                android:layout_width="55dp"
+                android:layout_height="47dp"
                 android:background="#FFFFFF"
                 android:tint="@color/teal_200"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -72,8 +72,8 @@
 
             <TextView
                 android:id="@+id/placa1"
-                android:layout_width="107dp"
-                android:layout_height="54dp"
+                android:layout_width="217dp"
+                android:layout_height="53dp"
                 android:text="Placa"
                 android:textColor="#00BCD4"
                 android:textSize="34sp"
