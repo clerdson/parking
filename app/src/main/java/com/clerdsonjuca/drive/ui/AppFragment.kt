@@ -10,16 +10,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
-import com.clerdsonjuca.drive.MainViewModel
-import com.clerdsonjuca.drive.MainViewModelFactory
+import com.clerdsonjuca.drive.NetworkResult
+import com.clerdsonjuca.drive.viewModel.MainViewModel
+import com.clerdsonjuca.drive.viewModel.MainViewModelFactory
 import com.clerdsonjuca.drive.R
-import com.clerdsonjuca.drive.api.add
 import com.clerdsonjuca.drive.model.Carro
 import com.clerdsonjuca.drive.repository.Repository
 import com.google.android.material.tabs.TabLayout
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_app.*
 import kotlinx.android.synthetic.main.fragment_saida.*
 
@@ -32,10 +34,11 @@ import kotlinx.android.synthetic.main.fragment_saida.*
  * Use the [AppFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+@AndroidEntryPoint
 class AppFragment : Fragment() {
     var tabLayout: TabLayout? = null
     var viewPager: ViewPager? = null
-    private lateinit var viewModel: MainViewModel
+    private val viewModel by viewModels <MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +60,25 @@ class AppFragment : Fragment() {
 
         buttonEntrada.setOnClickListener {
             //add(requireContext(),editTextTextPersonNameEntrada)
+
+            var carro = Carro(editTextTextPersonNameEntrada.text.toString())
+
+
+            viewModel.pushPost(carro)
+            viewModel.myResponse.observe(requireActivity(), Observer { response ->
+                if(response.isSuccessful){
+                    Log.d("Main", response.body().toString())
+                    Log.d("Main", response.code().toString())
+                    Log.d("Main", response.message())
+
+                    progressBar.visibility = View.GONE
+                }else {
+                    Toast.makeText(requireContext(),response.message().toString(),Toast.LENGTH_SHORT).show()
+                    progressBar.visibility = View.GONE
+                }
+            })
+
+/*
             progressBar.visibility = View.VISIBLE
             val repository = Repository()
             val viewModelFactory = MainViewModelFactory(repository)
@@ -78,7 +100,7 @@ class AppFragment : Fragment() {
                     progressBar.visibility = View.GONE
                 }
             })
-            println("ok")
+ */           println("ok")
         }
 
 
@@ -106,5 +128,7 @@ class AppFragment : Fragment() {
         })
 
     }
+fun fetchData(){
 
+}
     }

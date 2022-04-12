@@ -1,4 +1,4 @@
-package com.clerdsonjuca.drive
+package com.clerdsonjuca.drive.ui
 
 import android.content.Intent
 import android.graphics.Color
@@ -6,6 +6,8 @@ import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
+import com.clerdsonjuca.drive.MainActivity
+import com.clerdsonjuca.drive.R
 import kotlinx.android.synthetic.main.activity_main3.*
 
 class MainActivity3 : AppCompatActivity() {
@@ -25,7 +27,7 @@ class MainActivity3 : AppCompatActivity() {
         time3D.text = pay
         val back = findViewById<ImageButton>(R.id.imageButton3)
         back.setOnClickListener {
-            val intent = Intent(this,MainActivity::class.java,)
+            val intent = Intent(this, MainActivity::class.java,)
             startActivity(intent)
         }
     }

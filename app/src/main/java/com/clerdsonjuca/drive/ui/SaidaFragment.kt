@@ -1,11 +1,9 @@
 package com.clerdsonjuca.drive.ui
 
-import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.DialogInterface
 import android.content.Intent
-import android.database.DatabaseUtils
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
@@ -17,14 +15,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import com.clerdsonjuca.drive.*
-import com.clerdsonjuca.drive.databinding.ActivityMainBinding
 import com.clerdsonjuca.drive.repository.Repository
+import com.clerdsonjuca.drive.viewModel.MainViewModel
+import com.clerdsonjuca.drive.viewModel.MainViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_app.*
 import kotlinx.android.synthetic.main.fragment_saida.*
@@ -39,10 +37,11 @@ import kotlinx.android.synthetic.main.fragment_saida.*
  * Use the [SaidaFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+@AndroidEntryPoint
 class SaidaFragment : Fragment() {
-    private lateinit var viewModel: MainViewModel
-    private lateinit var bindingSignIn: SaidaFragment
 
+    private lateinit var bindingSignIn: SaidaFragment
+    private val viewModel by viewModels <MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,8 +61,8 @@ class SaidaFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val repository = Repository()
-        val viewModelFactory = MainViewModelFactory(repository)
+        //val repository = Repository()
+        //val viewModelFactory = MainViewModelFactory(repository)
         val buttonPagamento = view.findViewById<Button>(R.id.buttonP)
         val buttonSaida = view.findViewById<Button>(R.id.buttonS)
         val buttonSaida2 = view.findViewById<Button>(R.id.buttonS2)
@@ -121,9 +120,9 @@ class SaidaFragment : Fragment() {
                     DialogInterface.OnClickListener { dialog, id ->
                         // START THE GAME!
                         progressBar2.visibility = View.VISIBLE
-                        val repository = Repository()
-                        val viewModelFactory = MainViewModelFactory(repository)
-                        viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+                       // val repository = Repository()
+                       // val viewModelFactory = MainViewModelFactory(repository)
+                       // viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
                         viewModel.pushPost3(editTextTextPersonNameSaida.text.toString())
                         viewModel.myResponse4.observe(requireActivity(), Observer { response ->
@@ -163,9 +162,9 @@ class SaidaFragment : Fragment() {
                     DialogInterface.OnClickListener { dialog, id ->
                         // START THE GAME!
                         progressBar2.visibility = View.VISIBLE
-                        val repository = Repository()
-                        val viewModelFactory = MainViewModelFactory(repository)
-                        viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+                        //val repository = Repository()
+                       // val viewModelFactory = MainViewModelFactory(repository)
+                        //viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
                         viewModel.pushPost2(editTextTextPersonNameSaida.text.toString())
                         viewModel.myResponse3.observe(requireActivity(), Observer { response ->
