@@ -6,14 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".ui.AppFragment">
 
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginTop="76dp"
         android:text="Numero da placa"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonNameSaida"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.171"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,20 +22,20 @@
         android:id="@+id/editTextTextPersonNameSaida"
         android:layout_width="307dp"
         android:layout_height="56dp"
+        android:layout_marginTop="28dp"
         android:ems="10"
         android:inputType="textPersonName"
+        android:maxLength="8"
         android:text="AAA-0000"
-        app:layout_constraintBottom_toTopOf="@+id/buttonP"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:maxLength="8"
-        />
-
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
         android:id="@+id/buttonP"
         android:layout_width="313dp"
         android:layout_height="56dp"
+        android:layout_marginTop="8dp"
         android:backgroundTint="#673AB7"
         android:text="pagamento"
         app:layout_constraintEnd_toEndOf="parent"
@@ -73,12 +72,12 @@
         app:strokeWidth="3dp" />
 
     <ProgressBar
-        android:indeterminateDrawable="@drawable/loading"
-        android:visibility="gone"
         android:id="@+id/progressBar2"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:indeterminateDrawable="@drawable/loading"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
