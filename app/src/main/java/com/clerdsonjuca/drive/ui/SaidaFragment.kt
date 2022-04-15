@@ -19,6 +19,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.clerdsonjuca.drive.*
+import com.clerdsonjuca.drive.databinding.FragmentSaidaBinding
 import com.clerdsonjuca.drive.repository.Repository
 import com.clerdsonjuca.drive.viewModel.MainViewModel
 import com.clerdsonjuca.drive.viewModel.MainViewModelFactory
@@ -40,7 +41,7 @@ import kotlinx.android.synthetic.main.fragment_saida.*
 @AndroidEntryPoint
 class SaidaFragment : Fragment() {
 
-    private lateinit var bindingSignIn: SaidaFragment
+    private lateinit var binding: FragmentSaidaBinding
     private val viewModel by viewModels <MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,38 +55,39 @@ class SaidaFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_saida, container, false)
+       // return inflater.inflate(R.layout.fragment_saida, container, false)
 
-
+        binding= FragmentSaidaBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //val repository = Repository()
         //val viewModelFactory = MainViewModelFactory(repository)
-        val buttonPagamento = view.findViewById<Button>(R.id.buttonP)
-        val buttonSaida = view.findViewById<Button>(R.id.buttonS)
-        val buttonSaida2 = view.findViewById<Button>(R.id.buttonS2)
+//        val buttonPagamento = view.findViewById<Button>(R.id.buttonP)
+//        val buttonSaida = view.findViewById<Button>(R.id.buttonS)
+//        val buttonSaida2 = view.findViewById<Button>(R.id.buttonS2)
 
-         buttonPagamento.setOnClickListener {
+         binding.buttonP.setOnClickListener {
 
              println("dialog")
              onCreateDialogP().show()
 
          }
-        buttonSaida.setOnClickListener {
+        binding.buttonS.setOnClickListener {
 
             println("dialog")
             onCreateDialogS().show()
 
         }
-        buttonSaida2.setOnClickListener {
+       binding.buttonS2.setOnClickListener {
             val intent = Intent(requireActivity(), MainActivity2::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             intent.putExtra("placa",editTextTextPersonNameSaida.text.toString())
             startActivity(intent)
         }
-        editTextTextPersonNameSaida.addTextChangedListener(object : TextWatcher {
+        binding.editTextTextPersonNameSaida.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
                 if (s.length == 8) {
                     Toast.makeText(requireContext(),"Pagamento",Toast.LENGTH_SHORT).show()
