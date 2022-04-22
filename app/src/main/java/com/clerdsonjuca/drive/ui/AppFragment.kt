@@ -22,6 +22,7 @@ import androidx.viewpager.widget.ViewPager
 import com.clerdsonjuca.drive.viewModel.MainViewModel
 import com.clerdsonjuca.drive.viewModel.MainViewModelFactory
 import com.clerdsonjuca.drive.R
+import com.clerdsonjuca.drive.Resource
 import com.clerdsonjuca.drive.databinding.ActivityMain2Binding.inflate
 import com.clerdsonjuca.drive.databinding.ActivityMainBinding
 import com.clerdsonjuca.drive.databinding.FragmentAppBinding
@@ -72,24 +73,45 @@ class AppFragment : Fragment() {
 
 
         binding.buttonEntrada.setOnClickListener {
-            //add(requireContext(),editTextTextPersonNameEntrada)
 
             var carro = Carro(editTextTextPersonNameEntrada.text.toString())
+            viewModel.fgets2(carro)
+            viewModel.response2.observe(requireActivity(), Observer {
+                when(it){
+                    is Resource.Success->{
+                           Toast.makeText(requireContext(),"ok",Toast.LENGTH_SHORT).show()
 
+                    }
+                    is Resource.Loading->{
+                        binding.progressBar.visibility = View.VISIBLE
 
-            viewModel.pushPost(carro)
-            viewModel.myResponse.observe(requireActivity(), Observer { response ->
-                if(response.isSuccessful){
-                    Log.d("Main", response.body().toString())
-                    Log.d("Main", response.code().toString())
-                    Log.d("Main", response.message())
+                    }
+                    is Resource.Error->{
+                        binding.progressBar.visibility = View.GONE
+                        Toast.makeText(requireContext(),"error",Toast.LENGTH_SHORT).show()
+                    }
 
-                    progressBar.visibility = View.GONE
-                }else {
-                    Toast.makeText(requireContext(),response.message().toString(),Toast.LENGTH_SHORT).show()
-                    progressBar.visibility = View.GONE
                 }
             })
+
+            //add(requireContext(),editTextTextPersonNameEntrada)
+
+//            var carro = Carro(editTextTextPersonNameEntrada.text.toString())
+//
+//
+//            viewModel.pushPost(carro)
+//            viewModel.myResponse.observe(requireActivity(), Observer { response ->
+//                if(response.isSuccessful){
+//                    Log.d("Main", response.body().toString())
+//                    Log.d("Main", response.code().toString())
+//                    Log.d("Main", response.message())
+//
+//                    progressBar.visibility = View.GONE
+//                }else {
+//                    Toast.makeText(requireContext(),response.message().toString(),Toast.LENGTH_SHORT).show()
+//                    progressBar.visibility = View.GONE
+//                }
+//            })
 
 /*
             progressBar.visibility = View.VISIBLE

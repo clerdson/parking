@@ -7,6 +7,13 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface SimpleApi {
+
+
+    @Headers("Content-Type: application/json")
+    @POST("parking")
+    suspend fun pushPostF(@Body post: Carro):Response<Carro>
+
+
     @Headers("Content-Type: application/json")
     @POST("parking")
     suspend fun pushPost(@Body post: Carro):Response<Carro>
@@ -14,7 +21,7 @@ interface SimpleApi {
     @GET("parking/{postNumber}")
     suspend fun  getPost(
         @Path("postNumber")number:String
-    ):Response<List<Historico>>
+    ):List<Historico>
 
     @POST("parking/{postNumber}/pay")
     suspend fun pushPost2(

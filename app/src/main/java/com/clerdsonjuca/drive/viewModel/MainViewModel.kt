@@ -24,7 +24,7 @@ class MainViewModel @Inject constructor(
     AndroidViewModel(application) {
 
     var myResponse: MutableLiveData<Response<Carro>> = MutableLiveData()
-    var myResponse2: MutableLiveData <Response<List<Historico>>> = MutableLiveData()
+    var myResponse2: MutableLiveData <List<Historico>> = MutableLiveData()
     var myResponse3: MutableLiveData<Response<Boolean>> = MutableLiveData()
     var myResponse4: MutableLiveData<Response<Boolean>> = MutableLiveData()
 
@@ -42,7 +42,7 @@ class MainViewModel @Inject constructor(
 
 
     private val _response: MutableLiveData<Resource<List<Historico>>> = MutableLiveData()
-    val response: LiveData<Resource<List<Historico>>> = _response
+    val response: LiveData<Resource<List<Historico>>> =_response
     fun fgets(number: String) = viewModelScope.launch {
         repository.fgets(number).collect {
              _response.value= it
@@ -53,6 +53,14 @@ class MainViewModel @Inject constructor(
 
 
 
+
+    private val _response2: MutableLiveData<Resource<Carro>> = MutableLiveData()
+    val response2: LiveData<Resource<Carro>> = _response2
+    fun fgets2(post: Carro) = viewModelScope.launch {
+        repository.getPushFlow(post =post ).collect {
+            _response2.value= it
+        }
+    }
 
 
 
