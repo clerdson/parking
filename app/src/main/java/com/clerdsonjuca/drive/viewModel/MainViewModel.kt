@@ -9,6 +9,7 @@ import com.clerdsonjuca.drive.model.Historico
 import com.clerdsonjuca.drive.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -31,13 +32,24 @@ class MainViewModel @Inject constructor(
 
 
 
-    var _historicos:LiveData<Resource<List<Historico>>> = MutableLiveData()
+    //var _historicos:LiveData<Resource<List<Historico>>> = MutableLiveData()
 
 
-    fun fgets(number: String) {
-        _historicos= repository.fgets(number).asLiveData()
+//    fun fgets(number: String) {
+//        _historicos= repository.fgets(number).asLiveData()
+//
+//    }
 
+
+    private val _response: MutableLiveData<Resource<List<Historico>>> = MutableLiveData()
+    val response: LiveData<Resource<List<Historico>>> = _response
+    fun fgets(number: String) = viewModelScope.launch {
+        repository.fgets(number).collect {
+             _response.value= it
+        }
     }
+
+
 
 
 
