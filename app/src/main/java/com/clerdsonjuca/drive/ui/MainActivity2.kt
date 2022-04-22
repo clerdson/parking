@@ -13,12 +13,13 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.clerdsonjuca.drive.MyAdapter
 //import com.clerdsonjuca.drive.MyAdapter
 import com.clerdsonjuca.drive.viewModel.MainViewModel
 
 import com.clerdsonjuca.drive.R
 import com.clerdsonjuca.drive.Resource
-import com.clerdsonjuca.drive.RestaurantAdapter
+//import com.clerdsonjuca.drive.RestaurantAdapter
 
 import com.clerdsonjuca.drive.databinding.ActivityMain2Binding
 import com.clerdsonjuca.drive.model.Historico
@@ -43,7 +44,8 @@ class MainActivity2 : AppCompatActivity() {
         supportActionBar!!.setDisplayUseLogoEnabled(true)
 
         //setupRecyclerview()
-        val historicoAdapter = RestaurantAdapter()
+
+        val historicoAdapter = MyAdapter()
         binding.apply {
             recyclerView.apply {
                 adapter = historicoAdapter
@@ -53,7 +55,7 @@ class MainActivity2 : AppCompatActivity() {
             viewModel.fgets(profileName.toString())
             viewModel._historicos.observe(this@MainActivity2) { result ->
 
-                  historicoAdapter.submitList(result.data)
+                result.data?.let { historicoAdapter.setData(it) }
 
                  //restaurantAdapter.submitList(result.value?.data)
 
