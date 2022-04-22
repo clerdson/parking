@@ -1,8 +1,11 @@
 package com.clerdsonjuca.drive.di
 
+import android.app.Application
 import android.provider.SyncStateContract
+import androidx.room.Room
 import com.clerdsonjuca.drive.Util.Constants
 import com.clerdsonjuca.drive.api.SimpleApi
+import com.clerdsonjuca.drive.model.HistoricoDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -48,4 +51,10 @@ class NetworkModule {
     @Provides
     fun providesCurrentService(retrofit: Retrofit):SimpleApi =
         retrofit.create(SimpleApi::class.java)
+
+    @Singleton
+    @Provides
+    fun provideDatabase(app:Application):HistoricoDatabase =
+        Room.databaseBuilder(app,HistoricoDatabase::class.java,"historico")
+            .build()
 }

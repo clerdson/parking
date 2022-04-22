@@ -1,15 +1,15 @@
 package com.clerdsonjuca.drive.viewModel
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.widget.Toast
+import androidx.lifecycle.*
+import com.clerdsonjuca.drive.Resource
 import com.clerdsonjuca.drive.model.Carro
 import com.clerdsonjuca.drive.model.Historico
 import com.clerdsonjuca.drive.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
@@ -17,7 +17,9 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val repository: Repository,
-    application: Application):
+    application: Application,
+
+):
     AndroidViewModel(application) {
 
     var myResponse: MutableLiveData<Response<Carro>> = MutableLiveData()
@@ -26,12 +28,32 @@ class MainViewModel @Inject constructor(
     var myResponse4: MutableLiveData<Response<Boolean>> = MutableLiveData()
 
 
+
+
+
+    var _historicos:LiveData<Resource<List<Historico>>> = MutableLiveData()
+
+
+    fun fgets(number: String) {
+        _historicos= repository.fgets(number).asLiveData()
+
+    }
+
+
+
+
+
+
     fun pushPost(post: Carro) {
         viewModelScope.launch {
             val response = repository.pushPost(post)
             myResponse.postValue(response)
         }
     }
+
+
+
+
 
     fun getPost(number: String) {
         viewModelScope.launch {

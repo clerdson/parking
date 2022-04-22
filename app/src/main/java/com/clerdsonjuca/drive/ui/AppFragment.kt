@@ -18,7 +18,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
-import com.clerdsonjuca.drive.NetworkResult
+
 import com.clerdsonjuca.drive.viewModel.MainViewModel
 import com.clerdsonjuca.drive.viewModel.MainViewModelFactory
 import com.clerdsonjuca.drive.R
