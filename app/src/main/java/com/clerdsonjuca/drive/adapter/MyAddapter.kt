@@ -66,11 +66,13 @@ import kotlinx.android.synthetic.main.row.view.*
 class MyAdapter: RecyclerView.Adapter<MyAdapter.MyViewHolder>(){
 
     private var myList = emptyList<Historico>()
+    private lateinit var  binding:RowBinding
 
     inner class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        return MyViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row, parent, false))
+        binding = RowBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+       return MyViewHolder(binding.root)
     }
 
     override fun getItemCount(): Int {
@@ -78,13 +80,15 @@ class MyAdapter: RecyclerView.Adapter<MyAdapter.MyViewHolder>(){
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+
+
         var pago:String = "-"
-        holder.itemView.time2.text = myList[position].time.toString()
+        binding.time2.text = myList[position].time.toString()
         if(myList[position].paid == true){
             pago="pago"
         }
-        holder.itemView.time3.text = pago.toString()
-        holder.itemView.cardViewRow.setOnClickListener {
+        binding.time3.text = pago.toString()
+        binding.cardViewRow.setOnClickListener {
 
 
             val intent = Intent(it.context , MainActivity3::class.java)
