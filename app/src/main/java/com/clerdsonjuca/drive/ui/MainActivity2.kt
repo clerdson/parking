@@ -55,18 +55,20 @@ class MainActivity2 : AppCompatActivity() {
             viewModel.fgets(profileName.toString())
             viewModel.response.observe(this@MainActivity2) { result ->
 
-                when(result){
-                    is Resource.Success->{
-                        result.data?.let { historicoAdapter.setData(it) }
-                        binding.progressBar3.visibility = View.GONE
-                    }
-                    is Resource.Error->{
-                        Toast.makeText(this@MainActivity2,"ERROR",Toast.LENGTH_SHORT).show()
-                    }
-                    is Resource.Loading->{
-                        binding.progressBar3.visibility = View.VISIBLE
-                    }
-                }
+                historicoAdapter.submitList(result.data)
+                binding.progressBar3.visibility = View.GONE
+//                when(result){
+//                    is Resource.Success->{
+//                        historicoAdapter.submitList(result.data)
+//                        binding.progressBar3.visibility = View.GONE
+//                    }
+//                    is Resource.Error->{
+//                        Toast.makeText(this@MainActivity2,"ERROR",Toast.LENGTH_SHORT).show()
+//                    }
+//                    is Resource.Loading->{
+//                        binding.progressBar3.visibility = View.VISIBLE
+//                    }
+//                }
 
                  //restaurantAdapter.submitList(result.value?.data)
 
