@@ -83,20 +83,23 @@ class MyAdapter: RecyclerView.Adapter<MyAdapter.MyViewHolder>(){
 
 
         var pago:String = "-"
-        binding.time2.text = myList[position].time.toString()
-        if(myList[position].paid == true){
-            pago="pago"
-        }
-        binding.time3.text = pago.toString()
-        binding.cardViewRow.setOnClickListener {
+        binding.apply {
+            time2.text = myList[position].time
+            if(myList[position].paid == true){
+                pago="pago"
+            }
+            time3.text = pago
+            cardViewRow.setOnClickListener {
 
 
-            val intent = Intent(it.context , MainActivity3::class.java)
-            intent.putExtra("pay",pago)
-            intent.putExtra("time",myList[position].time)
-            intent.putExtra("plate",myList[position].plate)
-            it.context.startActivity(intent)
+                val intent = Intent(it.context , MainActivity3::class.java)
+                intent.putExtra("pay",pago)
+                intent.putExtra("time",myList[position].time)
+                intent.putExtra("plate",myList[position].plate)
+                it.context.startActivity(intent)
+            }
         }
+
     }
 
 
