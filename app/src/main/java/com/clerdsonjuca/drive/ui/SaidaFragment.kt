@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
@@ -68,6 +69,8 @@ class SaidaFragment : Fragment() {
 //        val buttonPagamento = view.findViewById<Button>(R.id.buttonP)
 //        val buttonSaida = view.findViewById<Button>(R.id.buttonS)
 //        val buttonSaida2 = view.findViewById<Button>(R.id.buttonS2)
+        val phoneNumber =  view.findViewById<EditText>(R.id.editTextTextPersonNameSaida)
+        phoneNumber.addTextChangedListener( MaskWatcher("###-###"));
 
          binding.buttonP.setOnClickListener {
 

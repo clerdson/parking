@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.databinding.DataBindingUtil
@@ -20,6 +21,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
+import com.clerdsonjuca.drive.MaskWatcher
 
 import com.clerdsonjuca.drive.viewModel.MainViewModel
 import com.clerdsonjuca.drive.viewModel.MainViewModelFactory
@@ -71,7 +73,8 @@ class AppFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+      val phoneNumber =  view.findViewById<EditText>(R.id.editTextTextPersonNameEntrada)
+        phoneNumber.addTextChangedListener( MaskWatcher("###-###"));
 
 
         binding.buttonEntrada.setOnClickListener {
@@ -145,7 +148,7 @@ class AppFragment : Fragment() {
             override fun afterTextChanged(s: Editable) {
                 if (s.length == 8) {
                     Toast.makeText(requireContext(),"Pagamento", Toast.LENGTH_SHORT).show()
-                    buttonEntrada.setBackgroundColor(Color.GREEN)
+                    buttonEntrada.setBackgroundColor(Color.parseColor("#28DD91"))
                     //Apaga o conteudo
                     //Aqui faça o que pretende ou chame um método da sua Activity
                 }
