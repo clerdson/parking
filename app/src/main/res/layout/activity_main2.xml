@@ -9,8 +9,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="0dp"
-        android:layout_height="595dp"
+        android:layout_width="409dp"
+        android:layout_height="637dp"
         android:layout_marginBottom="4dp"
         android:background="#FFF"
         android:backgroundTint="#FFF"
@@ -22,9 +22,9 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="0dp"
-        android:layout_height="61dp"
-        android:layout_marginTop="60dp"
+        android:layout_width="408dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.666"
@@ -38,15 +38,15 @@
 
             <TextView
                 android:id="@+id/placa2"
-                android:layout_width="84dp"
-                android:layout_height="54dp"
+                android:layout_width="183dp"
+                android:layout_height="53dp"
                 android:text="Placa"
                 android:textColor="#00BCD4"
                 android:textSize="34sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.893"
+                app:layout_constraintHorizontal_bias="0.641"
                 app:layout_constraintStart_toEndOf="@+id/imageButtonBack"
-                tools:layout_editor_absoluteY="-2dp" />
+                tools:layout_editor_absoluteY="0dp" />
 
             <ImageButton
                 android:id="@+id/imageButtonBack"
@@ -61,16 +61,17 @@
 
             <TextView
                 android:id="@+id/placa1"
-                android:layout_width="217dp"
-                android:layout_height="53dp"
+                android:layout_width="110dp"
+                android:layout_height="51dp"
                 android:text="Placa"
                 android:textColor="#00BCD4"
                 android:textSize="34sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/placa2"
-                app:layout_constraintHorizontal_bias="0.354"
+                app:layout_constraintHorizontal_bias="0.12"
                 app:layout_constraintStart_toEndOf="@+id/imageButtonBack"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

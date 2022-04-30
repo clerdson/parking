@@ -13,7 +13,7 @@ import com.clerdsonjuca.drive.model.Historico
 import com.clerdsonjuca.drive.ui.MainActivity3
 import kotlinx.android.synthetic.main.row.view.*
 
-class MyAdapter:
+class MyAdapter :
     ListAdapter<Historico, MyAdapter.RestaurantViewHolder>(RestaurantComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RestaurantViewHolder {
@@ -29,24 +29,28 @@ class MyAdapter:
         }
     }
 
-    class RestaurantViewHolder(private val binding:RowBinding) :
+    class RestaurantViewHolder(private val binding: RowBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(restaurant: Historico) {
             binding.apply {
-
+                if (restaurant.paid == true) {
+                    time3.text = "pago"
+                } else {
+                    time3.text = "-"
+                }
 
                 time2.text = restaurant.time
-                time3.text = restaurant.paid.toString()
+                // time3.text = restaurant.paid.toString()
                 cardViewRow.setOnClickListener {
 
 
-            val intent = Intent(it.context , MainActivity3::class.java)
-            intent.putExtra("pay",restaurant.paid)
-            intent.putExtra("time",restaurant.time)
-            intent.putExtra("plate",restaurant.plate)
-            it.context.startActivity(intent)
-        }
+                    val intent = Intent(it.context, MainActivity3::class.java)
+                    intent.putExtra("pay", time3.text)
+                    intent.putExtra("time", restaurant.time)
+                    intent.putExtra("plate", restaurant.plate)
+                    it.context.startActivity(intent)
+                }
 
 
             }

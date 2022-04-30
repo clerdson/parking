@@ -12,17 +12,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.clerdsonjuca.drive.*
 import com.clerdsonjuca.drive.databinding.FragmentSaidaBinding
-import com.clerdsonjuca.drive.repository.Repository
 import com.clerdsonjuca.drive.viewModel.MainViewModel
-import com.clerdsonjuca.drive.viewModel.MainViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_app.*
@@ -72,14 +72,17 @@ class SaidaFragment : Fragment() {
          binding.buttonP.setOnClickListener {
 
              println("dialog")
-             onCreateDialogP().show()
+            // onCreateDialogP().show()
+
+             //MyCustomDialog().show(parentFragmentManager, "MyCustomFragment")
+             showDialogPagamento(editTextTextPersonNameSaida.text.toString())
 
          }
         binding.buttonS.setOnClickListener {
 
             println("dialog")
-            onCreateDialogS().show()
-
+            //onCreateDialogS().show()
+           showDialogSaida(editTextTextPersonNameSaida.text.toString())
         }
        binding.buttonS2.setOnClickListener {
             val intent = Intent(requireActivity(), MainActivity2::class.java)
@@ -91,7 +94,9 @@ class SaidaFragment : Fragment() {
             override fun afterTextChanged(s: Editable) {
                 if (s.length == 8) {
                     Toast.makeText(requireContext(),"Pagamento",Toast.LENGTH_SHORT).show()
-                     buttonP.setBackgroundColor(Color.GREEN)
+                     buttonP.setBackgroundColor(Color.parseColor("#A769B2"))
+
+
                 //Apaga o conteudo
                     //Aqui faça o que pretende ou chame um método da sua Activity
                 }
@@ -111,91 +116,86 @@ class SaidaFragment : Fragment() {
         })
 
     }
+    private fun showDialogPagamento(title: String) {
+        val dialog = Dialog(requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.dialog)
+        val body = dialog.findViewById(R.id.textView3) as TextView
+        body.text = title
+        val pagamentoBtn = dialog.findViewById(R.id.buttonPa) as Button
+        val saidaBtn = dialog.findViewById(R.id.buttonSa) as TextView
+        pagamentoBtn.setOnClickListener {
+            progressBar2.visibility = View.VISIBLE
+            //val repository = Repository()
+            // val viewModelFactory = MainViewModelFactory(repository)
+            //viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+
+            viewModel.pushPost2(editTextTextPersonNameSaida.text.toString())
+            viewModel.myResponse3.observe(requireActivity(), Observer { response ->
+                if(response.isSuccessful){
+                    Log.d("Main", response.body().toString())
+                    Log.d("Main", response.code().toString())
+                    Log.d("Main", response.message())
+                    Toast.makeText(requireContext(),"certo",Toast.LENGTH_SHORT).show()
 
 
-    fun onCreateDialogS(): Dialog {
-        return activity?.let {
-            // Use the Builder class for convenient dialog construction
-            val builder = AlertDialog.Builder(it)
-            builder.setMessage("Deseja Sair")
-                .setPositiveButton("Pagar",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        // START THE GAME!
-                        progressBar2.visibility = View.VISIBLE
-                       // val repository = Repository()
-                       // val viewModelFactory = MainViewModelFactory(repository)
-                       // viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+                    progressBar2.visibility = View.GONE
 
-                        viewModel.pushPost3(editTextTextPersonNameSaida.text.toString())
-                        viewModel.myResponse4.observe(requireActivity(), Observer { response ->
-                            if(response.isSuccessful){
+                }else {
 
-                                Log.d("Main", response.body().toString())
-                                Log.d("Main", response.code().toString())
-                                Log.d("Main", response.message())
-                                Toast.makeText(requireContext(),"certo",Toast.LENGTH_SHORT).show()
+                    progressBar2.visibility = View.GONE
+                }
+            })
 
+            dialog.dismiss()
+        }
+        saidaBtn.setOnClickListener { dialog.dismiss() }
+        dialog.show()
 
-
-                                progressBar2.visibility = View.GONE
-                            }else {
-
-                                progressBar2.visibility = View.GONE
-                            }
-                        })
-
-
-                    })
-                .setNegativeButton("voltar",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        // User cancelled the dialog
-                        dialog.cancel()
-                    })
-            // Create the AlertDialog object and return it
-            builder.create()
-        } ?: throw IllegalStateException("Activity cannot be null")
     }
-    fun onCreateDialogP(): Dialog {
-        return activity?.let {
-            // Use the Builder class for convenient dialog construction
-            val builder = AlertDialog.Builder(it)
-            builder.setMessage("Deseja Pagar")
-                .setPositiveButton("Pagar",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        // START THE GAME!
-                        progressBar2.visibility = View.VISIBLE
-                        //val repository = Repository()
-                       // val viewModelFactory = MainViewModelFactory(repository)
-                        //viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+    private fun showDialogSaida(title: String) {
+        val dialog = Dialog(requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.dialog_saida)
+        val body = dialog.findViewById(R.id.textView3) as TextView
+        body.text = title
+        val pagamentoBtn = dialog.findViewById(R.id.buttonPa) as Button
+        val saidaBtn = dialog.findViewById(R.id.buttonSa) as TextView
+        pagamentoBtn.setOnClickListener {
+            // START THE GAME!
+            progressBar2.visibility = View.VISIBLE
+            // val repository = Repository()
+            // val viewModelFactory = MainViewModelFactory(repository)
+            // viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
-                        viewModel.pushPost2(editTextTextPersonNameSaida.text.toString())
-                        viewModel.myResponse3.observe(requireActivity(), Observer { response ->
-                            if(response.isSuccessful){
-                                Log.d("Main", response.body().toString())
-                                Log.d("Main", response.code().toString())
-                                Log.d("Main", response.message())
-                                Toast.makeText(requireContext(),"certo",Toast.LENGTH_SHORT).show()
+            viewModel.pushPost3(editTextTextPersonNameSaida.text.toString())
+            viewModel.myResponse4.observe(requireActivity(), Observer { response ->
+                if(response.isSuccessful){
 
-
-                                progressBar2.visibility = View.GONE
-
-                            }else {
-
-                                progressBar2.visibility = View.GONE
-                            }
-                        })
+                    Log.d("Main", response.body().toString())
+                    Log.d("Main", response.code().toString())
+                    Log.d("Main", response.message())
+                    Toast.makeText(requireContext(),"certo",Toast.LENGTH_SHORT).show()
 
 
-                    })
-                .setNegativeButton("voltar",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        // User cancelled the dialog
-                        dialog.cancel()
-                    })
-            // Create the AlertDialog object and return it
-            builder.create()
-        } ?: throw IllegalStateException("Activity cannot be null")
+
+                    progressBar2.visibility = View.GONE
+                }else {
+
+                    progressBar2.visibility = View.GONE
+                }
+            })
+
+            dialog.dismiss()
+        }
+        saidaBtn.setOnClickListener { dialog.dismiss() }
+        dialog.show()
+
     }
+
+
 
 
 }

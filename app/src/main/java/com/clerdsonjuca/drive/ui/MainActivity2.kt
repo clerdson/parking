@@ -3,16 +3,19 @@ package com.clerdsonjuca.drive.ui
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.clerdsonjuca.drive.MainActivity
 import com.clerdsonjuca.drive.MyAdapter
 //import com.clerdsonjuca.drive.MyAdapter
 import com.clerdsonjuca.drive.viewModel.MainViewModel
@@ -42,9 +45,14 @@ class MainActivity2 : AppCompatActivity() {
         supportActionBar!!.setDisplayShowHomeEnabled(true);
         supportActionBar!!.setLogo(R.drawable.logo_parking)
         supportActionBar!!.setDisplayUseLogoEnabled(true)
-
+          val placa = findViewById<TextView>(R.id.placa2)
+        placa.text = profileName
         //setupRecyclerview()
 
+        binding.imageButtonBack.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java,)
+            startActivity(intent)
+        }
         val historicoAdapter = MyAdapter()
         binding.apply {
             recyclerView.apply {
