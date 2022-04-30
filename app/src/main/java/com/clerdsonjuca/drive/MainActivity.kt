@@ -11,6 +11,7 @@ import android.net.NetworkRequest.*
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import com.clerdsonjuca.drive.ui.MyPagerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         supportActionBar!!.setTitle("")
         supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.CYAN))
         supportActionBar!!.setDisplayShowHomeEnabled(true);
