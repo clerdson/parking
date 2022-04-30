@@ -22,8 +22,8 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/Tab"
-        android:layout_width="0dp"
-        android:layout_height="61dp"
+        android:layout_width="413dp"
+        android:layout_height="84dp"
         android:background="#EAE9E9"
         app:layout_constraintBottom_toTopOf="@+id/viewPager"
         app:layout_constraintEnd_toEndOf="parent"

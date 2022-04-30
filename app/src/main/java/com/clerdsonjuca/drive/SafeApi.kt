@@ -4,7 +4,9 @@ import android.util.Log
 import retrofit2.Response
 import java.lang.Exception
 abstract class BaseApiResponse {
-    suspend fun <T> safeApiCall(apiCall: suspend () -> Response<T>): Resource<T> {
+    suspend fun <T> safeApiCall(
+        apiCall: suspend () -> Response<T>
+    ): Resource<T> {
         try {
             val response = apiCall()
             if (response.isSuccessful) {

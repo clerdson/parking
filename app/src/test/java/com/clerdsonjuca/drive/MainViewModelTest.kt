@@ -1,5 +1,8 @@
 package com.clerdsonjuca.drive
 
+import android.app.Application
+import com.clerdsonjuca.drive.api.SimpleApi
+import com.clerdsonjuca.drive.model.HistoricoDatabase
 import com.clerdsonjuca.drive.repository.Repository
 import com.clerdsonjuca.drive.viewModel.MainViewModel
 import kotlinx.coroutines.Dispatchers
@@ -19,12 +22,17 @@ class MainViewModelTest{
 
     private lateinit var viewModel: MainViewModel
     private val mainThreadSurrogate = newSingleThreadContext("UI thread")
-    var api2 = Repository()
+
+    private lateinit var simpleApi:SimpleApi
+    private lateinit var db:HistoricoDatabase
+    private lateinit var application: Application
+    var api2 = Repository(simpleApi,db)
     @Before
     fun setup(){
 
         Dispatchers.setMain(mainThreadSurrogate)
-        viewModel = MainViewModel(repository = Repository())
+
+            viewModel = MainViewModel(repository = Repository(simpleApi, db), application)
 
     }
     @After
